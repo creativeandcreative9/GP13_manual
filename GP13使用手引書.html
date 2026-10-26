@@ -1,0 +1,1015 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>メッシュ工房 使用手引書</title>
+<style>
+:root{--bg:#fbfaf7;--fg:#22252a;--muted:#5d6570;--line:#dcd8cf;--panel:#f2efe8;--accent:#0b6b5d;--accent-fg:#fff;--done:#8a929c}
+@media (prefers-color-scheme:dark){:root{--bg:#16181b;--fg:#e8e6e1;--muted:#a3abb4;--line:#33373d;--panel:#202327;--accent:#5fc9b7;--accent-fg:#0d1512;--done:#78808a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:"Yu Gothic UI","Hiragino Sans","Meiryo",system-ui,sans-serif;font-size:17px;line-height:1.85}
+.layout{display:flex;align-items:flex-start;max-width:1180px;margin:0 auto}
+nav.toc{position:sticky;top:0;align-self:flex-start;width:290px;flex:none;height:100vh;overflow-y:auto;padding:20px 16px 40px;border-right:1px solid var(--line);font-size:14.5px;line-height:1.5}
+nav.toc h2{font-size:15px;margin:0 0 4px;border:0;padding:0}
+nav.toc a{display:block;padding:5px 8px;border-radius:6px;color:var(--fg);text-decoration:none}
+nav.toc a:hover{background:var(--panel)}
+nav.toc a.on{background:var(--accent);color:var(--accent-fg)}
+nav.toc .grp{margin:14px 0 2px 8px;font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+main{flex:1;min-width:0;padding:8px 28px 120px;max-width:820px}
+section.chapter{padding:34px 0 18px;border-bottom:1px solid var(--line);scroll-margin-top:0}
+h1{font-size:30px;line-height:1.35;margin:.2em 0 .5em}
+h2{font-size:22px;margin:1.9em 0 .4em;padding-left:12px;border-left:5px solid var(--accent);line-height:1.4}
+h3{font-size:18px;margin:1.5em 0 .3em}
+p{margin:.7em 0}
+a{color:var(--accent)}
+code{background:var(--panel);padding:.1em .4em;border-radius:5px;font-size:.92em}
+img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block;margin:12px 0;cursor:zoom-in;background:var(--panel)}
+ol,ul{padding-left:1.5em}
+li{margin:.5em 0}
+ol.steps{counter-reset:step;padding-left:0;list-style:none}
+ol.steps>li.step{position:relative;padding:10px 12px 10px 3em;border:1px solid var(--line);border-radius:10px;background:var(--panel);counter-increment:step}
+ol.steps>li.step::before{content:counter(step);position:absolute;left:10px;top:12px;width:1.7em;height:1.7em;border-radius:50%;background:var(--accent);color:var(--accent-fg);font-weight:700;text-align:center;line-height:1.7em;font-size:.95em}
+li.step.done{opacity:.6}
+li.step.done::before{content:"✓";background:var(--done)}
+li.step .tick{float:right;margin:0 0 4px 8px;font:inherit;font-size:12.5px;border:1px solid var(--line);background:var(--bg);color:var(--muted);border-radius:999px;padding:0 10px;line-height:1.8;cursor:pointer}
+table{border-collapse:collapse;width:100%;margin:14px 0;font-size:15px;line-height:1.6;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel)}
+.top{position:fixed;right:16px;bottom:16px;display:flex;gap:8px;z-index:5}
+.top button,.top a{background:var(--accent);color:var(--accent-fg);border:0;border-radius:999px;padding:9px 16px;font:inherit;font-size:14px;text-decoration:none;cursor:pointer;box-shadow:0 2px 8px #0003}
+.menu-btn{display:none}
+#lightbox{position:fixed;inset:0;background:#000d;display:none;align-items:center;justify-content:center;z-index:20;cursor:zoom-out}
+#lightbox img{max-width:96vw;max-height:94vh;border:0;margin:0;cursor:zoom-out}
+#lightbox.on{display:flex}
+@media (max-width:860px){
+  nav.toc{position:fixed;left:0;top:0;z-index:10;background:var(--bg);transform:translateX(-100%);transition:transform .2s;width:min(86vw,320px);box-shadow:0 0 20px #0005}
+  nav.toc.open{transform:none}
+  .menu-btn{display:inline-block}
+  main{padding:8px 16px 120px}
+  body{font-size:16.5px}
+}
+@media print{nav.toc,.top{display:none}.layout{display:block}section.chapter{break-before:page}img{cursor:auto}li.step .tick{display:none}}
+</style>
+</head>
+<body>
+<div class="layout">
+<nav class="toc" aria-label="目次"><h2>メッシュ工房 使用手引書</h2><div class="grp">はじめに</div><a href="#ch-index">メッシュ工房 使用手引書</a><a href="#ch-01_はじめに">はじめに</a><a href="#ch-02_入れ方">入れ方</a><a href="#ch-03_はじめての練習">はじめての練習</a><div class="grp">やりたいことから探す</div><a href="#ch-04_01_スカートの丈を伸ばす">スカートの丈を伸ばす</a><a href="#ch-04_02_めり込みを直す">めり込みを直す</a><a href="#ch-04_03_ふくらませる">ふくらませる・へこませる</a><a href="#ch-04_04_左右を同時に直す">左右を同時に直す</a><a href="#ch-04_05_布のように引っ張る">布のように引っ張る</a><a href="#ch-04_06_スライダーで出し入れする">スライダーで出し入れする</a><a href="#ch-04_07_ポーズで確かめる">ポーズで確かめる</a><a href="#ch-04_08_腕についてくるように直す">腕についてくるように直す</a><a href="#ch-04_09_元に戻す">やり直す・元に戻す</a><a href="#ch-04_10_アップロードで直した形にする">アップロードで直した形にする</a><div class="grp">画面の説明</div><a href="#ch-05_1_画面の説明_頂点・スカルプト・布・ウェイト">画面の説明（頂点・スカルプト・布・ウェイト）</a><a href="#ch-05_2_画面の説明_ポリゴン・シェイプキー・チェック">画面の説明（ポリゴン・シェイプキー・チェック）</a><a href="#ch-05_3_画面の説明_出力・設定">画面の説明（出力・設定）</a><a href="#ch-05_4_画面の説明_頂点・スカルプト・布モード">画面の説明（頂点・スカルプト・布モード）</a><a href="#ch-05_5_画面の説明_ウェイト・ポリゴンモード">画面の説明（ウェイト・ポリゴンモード）</a><div class="grp">困ったとき・言葉</div><a href="#ch-06_困ったとき">困ったとき</a><a href="#ch-07_言葉の一覧">言葉の一覧</a></nav>
+<main><section class="chapter" id="ch-index"><h1>メッシュ工房 使用手引書</h1>
+<ul>
+<li>版: 0.1.0</li>
+<li>日付: 2026-10-26</li>
+</ul>
+<p>Unityに不慣れな方でもお使いいただけます。
+VRChat のアバターの、服を直したいときに読んでください。</p>
+<h2>この手引書でできるようになること</h2>
+<ul>
+<li>服の形を、少し直せるようになります。</li>
+<li>めり込みを見つけて、直せるようになります。</li>
+<li>直した形を、スライダーで出し入れできるようになります。</li>
+</ul>
+<h2>必要なもの</h2>
+<ul>
+<li>Unity 2022.3 か、Unity 6。</li>
+<li>直したい服が入った、アバターのデータ。</li>
+</ul>
+<h2>かかる時間</h2>
+<p>入れるまでが約 10 分、はじめての練習が約 10 分です。</p>
+<h2>元の服は壊れません</h2>
+<p>元の服のデータは、書き換わりません。
+まちがえても、Ctrl+Z で戻せます。
+やめたいときは、［破棄］を押します。</p>
+<h2>目次</h2>
+<ul>
+<li><a href="#ch-01_はじめに">はじめに</a></li>
+<li><a href="#ch-02_入れ方">入れ方</a></li>
+<li><a href="#ch-03_はじめての練習">はじめての練習</a></li>
+<li>やりたいこと（下の一覧）</li>
+<li>画面の説明: <a href="#ch-05_1_画面の説明_頂点・スカルプト・布・ウェイト">点を動かす・ブラシ・布・腕へのついてき方</a></li>
+<li>画面の説明: <a href="#ch-05_2_画面の説明_ポリゴン・シェイプキー・チェック">面を増減する・形の出し入れ・チェック</a></li>
+<li>画面の説明: <a href="#ch-05_3_画面の説明_出力・設定">出力・設定</a></li>
+<li>シーンビューの操作: <a href="#ch-05_4_画面の説明_頂点・スカルプト・布モード">点を動かす・ブラシ・布</a></li>
+<li>シーンビューの操作: <a href="#ch-05_5_画面の説明_ウェイト・ポリゴンモード">腕へのついてき方・面を増減する</a></li>
+<li><a href="#ch-06_困ったとき">困ったとき</a></li>
+<li><a href="#ch-07_言葉の一覧">言葉の一覧</a></li>
+</ul>
+<h2>やりたいことから探す</h2>
+<ul>
+<li><a href="#ch-04_01_スカートの丈を伸ばす">スカートの丈を少し伸ばしたい（短くしたい）</a></li>
+<li><a href="#ch-04_02_めり込みを直す">服が体にめり込んでいるのを直したい</a></li>
+<li><a href="#ch-04_03_ふくらませる">服の一部をふくらませたい・へこませたい</a></li>
+<li><a href="#ch-04_04_左右を同時に直す">左右を同時に同じように直したい</a></li>
+<li><a href="#ch-04_05_布のように引っ張る">布のように引っ張って形を整えたい</a></li>
+<li><a href="#ch-04_06_スライダーで出し入れする">直した形を、スライダーで出したり消したりしたい</a></li>
+<li><a href="#ch-04_07_ポーズで確かめる">いろいろなポーズで、めり込まないか確かめたい</a></li>
+<li><a href="#ch-04_08_腕についてくるように直す">腕を動かしたときの服のついてき方を直したい</a></li>
+<li><a href="#ch-04_09_元に戻す">やり直したい・元に戻したい</a></li>
+<li><a href="#ch-04_10_アップロードで直した形にする">VRChat にアップロードしたときに、直した形にしたい</a></li>
+</ul>
+<h2>困ったとき</h2>
+<p>うまくいかないときは、<a href="#ch-06_困ったとき">困ったとき</a>を見てください。</p>
+<h2>言葉を調べる</h2>
+<p>知らない言葉が出たら、<a href="#ch-07_言葉の一覧">言葉の一覧</a>を見てください。</p>
+</section><section class="chapter" id="ch-01_はじめに"><h1>はじめに</h1>
+<h2>メッシュ工房でできること</h2>
+<p>メッシュ工房は、Unity の中で、服の形を直すための道具です。
+スカートの丈を変えたり、体にめり込んだ所を直したりできます。
+直した形は、スライダーで出したり消したりできます。</p>
+<h2>安心して試せます</h2>
+<ul>
+<li>元の服のデータは、書き換わりません。</li>
+<li>まちがえたときは、Ctrl+Z で戻せます。</li>
+<li>編集中は、ポリゴン（服の表面をつくる三角形）の調整も戻せます。</li>
+<li>［保存して終了］のあとは、編集中の履歴では戻せません。</li>
+<li>やめたいときは、［破棄］を押します。</li>
+</ul>
+<p>［破棄］を押すと、保存していない編集がすべて消えます。
+始める前の形に戻るので、気軽に試してください。
+直した内容は、元の服とは別のファイルに入ります。</p>
+<h2>必要なもの</h2>
+<ul>
+<li>Unity 2022.3 か、Unity 6。</li>
+<li>直したい服が入った、アバターのデータ。</li>
+<li>VRChat SDK は、なくても使えます。</li>
+</ul>
+<h2>かかる時間</h2>
+<p>入れるまでが約 10 分、はじめての練習が約 10 分です。</p>
+<h2>先に知っておく言葉</h2>
+<p>この手引書では、次の言葉を使います。
+「言葉の一覧」にも、同じ説明があります。</p>
+<ul>
+<li>プロジェクト（Unity で作業しているデータの入れ物）。</li>
+<li>ヒエラルキー（Unity の左にある、置いてある物の一覧）。</li>
+<li>インスペクター（Unity の右にある、選んだ物の設定の窓）。</li>
+<li>シーンビュー（Unity の真ん中にある、服を見る画面）。</li>
+<li>プロジェクトウィンドウ（Unity の下にある、プロジェクトの中のファイルの一覧）。</li>
+<li>メッシュ（服の形そのもののデータ）。</li>
+<li>頂点（服の形を決めている小さな点）。</li>
+<li>ポリゴン（服の表面をつくる三角形）。</li>
+<li>シェイプキー（形の変化を、0 から 100 のスライダーで出し入れするもの）。</li>
+<li>ウェイト（服の頂点が、骨の動きにどれだけついていくかの割合）。</li>
+<li>ボーン（アバターの骨）。</li>
+<li>スカルプト（粘土をこねるように、ブラシでなぞって形を整えること）。</li>
+</ul>
+<h2>画像の見方</h2>
+<p>画像の赤い枠と数字は、押す場所です。
+その下の手順の番号と、同じ数字になっています。</p>
+</section><section class="chapter" id="ch-02_入れ方"><h1>入れ方</h1>
+<h2>ツールを手に入れる</h2>
+<p>BOOTH で「メッシュ工房」を購入し、商品の ZIP ファイルをダウンロードします。</p>
+<p>ダウンロードした ZIP ファイルを解凍（展開）します。
+解凍したフォルダの中に、<code>MeshKobo.unitypackage</code> があることを確かめます。</p>
+<p>Unity に取り込んだあとは、ZIP ファイルや解凍したフォルダを、移動・削除してもツールは使えます。</p>
+<h2>Unity に入れる</h2>
+<p>先に、Unity で、アバターが入ったデータ（プロジェクト）を開いておきます。</p>
+<ol>
+<li>
+<p><code>MeshKobo.unitypackage</code> をダブルクリックします。
+Unity の上のメニューから、［Assets &gt; Import Package &gt; Custom Package...］を選び、<code>MeshKobo.unitypackage</code> を選んでも同じです。</p>
+</li>
+<li>
+<p>「Import Unity Package」の窓が開きます。
+一覧のすべてに印が付いたまま、右下の［Import］を押します。</p>
+</li>
+<li>
+<p>Unity の読み込みが終わるまで待ちます。
+画面の右下に、くるくる回る印が出ている間は、待ちます。</p>
+</li>
+</ol>
+<h2>入ったことを確かめる</h2>
+<ol start="4">
+<li>
+<p>Unity の下にあるプロジェクトウィンドウで、<code>Assets</code> の中に <code>MeshKobo</code> フォルダが出ていることを確かめます。</p>
+</li>
+</ol>
+<p>フォルダが出ていれば、入っています。
+出てこないときや、Unity に赤いエラーが出たときは、「困ったとき」を見てください。</p>
+<h2>バージョンアップするとき</h2>
+<p>新しい版を入れる前に、<code>Assets</code> の中の <code>MeshKobo</code> フォルダを、プロジェクトウィンドウで右クリックして［Delete］で消します。
+そのあと、新しい <code>MeshKobo.unitypackage</code> を、上と同じ手順で取り込みます。
+フォルダを消さずに取り込むと、古いファイルが残って、動かなくなることがあります。</p>
+</section><section class="chapter" id="ch-03_はじめての練習"><h1>はじめての練習</h1>
+<p>服の点を 1 つ動かして、保存して、スライダーで出し入れします。
+練習なので、どんな服でも大丈夫です。
+元の服は書き換わりません。
+シーンビューにマウスを置き、ホイールを回すと拡大・縮小できます。</p>
+<h2>まず、服を選びます</h2>
+<ol>
+<li>ヒエラルキーで、直したい服の行をクリックします。</li>
+</ol>
+<p>服の行の名前は、アバターごとに違います。
+行を選ぶと、シーンビューで同じ物がオレンジの線で囲まれます。
+直したい服が囲まれる行を選びます。</p>
+<p><img src="images/03_01_hierarchy_select.png" alt="ヒエラルキーで服の行を選んだところ。赤い枠が服の行を囲んでいる" /></p>
+<h2>つぎに、道具を付けます</h2>
+<ol start="2">
+<li>
+<p>インスペクターのいちばん下の［Add Component］を押します。</p>
+<p><img src="images/03_02_add_component_button.png" alt="インスペクターの下にある Add Component のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>「Mesh Edit」が、メッシュ工房のコンポーネント名です。
+メニューの［GameObject &gt; GP13 &gt; メッシュ編集を追加］でも付けられます。</p>
+<h2>検索して選びます</h2>
+<ol start="3">
+<li>
+<p>出てきた欄に、「Mesh Edit」と入力します。</p>
+</li>
+<li>
+<p>一覧に出た「Mesh Edit」を選びます。</p>
+<p><img src="images/03_03_add_component_search.png" alt="Add Component の検索欄に Mesh Edit と入れたところ。一覧の Mesh Edit が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>編集を始めます</h2>
+<ol start="5">
+<li>
+<p>［編集を開始］を押します。</p>
+<p><img src="images/03_04_begin_editing.png" alt="Mesh Edit を付けたあとのインスペクター。いちばん上の編集を開始のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>点を選びます</h2>
+<ol start="6">
+<li>
+<p>シーンビューで、好きな点をクリックします。</p>
+<p><img src="images/03_05_click_vertex.png" alt="編集中のシーンビュー。スカートの上の小さな点の 1 つが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>矢印で動かします</h2>
+<ol start="7">
+<li>
+<p>緑の矢印を、下へドラッグします。</p>
+<p><img src="images/03_06_drag_arrow.png" alt="点を選んだところ。上向きの緑の矢印が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>動かした点のまわりも、なめらかについてきます。</p>
+<p><img src="images/03_07_moved.png" alt="緑の矢印を下へドラッグして、スカートのすそが下がったところ" /></p>
+<p>この練習では、右下の［確定］は押さずに、次の［保存して終了］へ進めます。
+保存のときに、動かした形も確定します。</p>
+<h2>保存します</h2>
+<ol start="8">
+<li>
+<p>［保存して終了］を押します。</p>
+<p><img src="images/03_08_save_and_end.png" alt="編集中のインスペクター。いちばん上の保存して終了のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>保存のあと、シーンビューに Unity の移動の矢印が出ることがあります。
+これは、服そのものを動かす矢印です。さわらないでください。</p>
+<h2>スライダーで出し入れします</h2>
+<ol start="9">
+<li>
+<p>「仕上がり」の下のスライダーを、左右に動かします。</p>
+<p><img src="images/03_09_result_slider.png" alt="保存して終了のあとのインスペクター。仕上がりのスライダーが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>0 にすると元の形、100 にすると直した形になります。
+左が 0、右が 100 のときの形です。</p>
+<p><img src="images/03_10_result_compare.png" alt="スライダーが 0 のときの形と、100 のときの形を並べた画像" /></p>
+<p>うまくいかないときは、「困ったとき」を見てください。</p>
+</section><section class="chapter" id="ch-04_01_スカートの丈を伸ばす"><h1>スカートの丈を伸ばす</h1>
+<h2>スカートの丈を少し伸ばしたい（短くしたい）</h2>
+<p>裾（服のいちばん下のふち）を下げると、丈が長くなります。
+上げると、短くなります。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。</p>
+<h3>動く範囲を決めます</h3>
+<ol>
+<li>
+<p>［頂点］タブを押します。</p>
+</li>
+<li>
+<p>［影響範囲の半径 (m)］で、いっしょに動く範囲を決めます。</p>
+<p><img src="images/04_01_hem_vertex_tab.png" alt="インスペクターの頂点タブ。タブと、影響範囲の半径のスライダーが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>目安は、裾から上へ、丈の 3 分の 1 くらいです。
+たとえば丈が 0.3m（30cm）なら、半径は 0.1m（10cm）から試します。
+あとで裾を少し動かしたとき、腰まで動くなら半径が大きすぎます。
+Ctrl+Z で戻し、半径を小さくして試します。
+裾だけが折れるように動くなら、半径を大きくして試します。</p>
+<h3>裾をひと回り選んで動かします</h3>
+<ol start="3">
+<li>
+<p>裾の点を、Alt+クリックします。</p>
+</li>
+<li>
+<p>緑の矢印を、下へドラッグします。</p>
+<p><img src="images/04_02_hem_selected.png" alt="裾の点をひと回り選んだところ。選んだ列と、緑の矢印が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>短くするときは、矢印を上へドラッグします。</p>
+<p><img src="images/04_03_hem_compare.png" alt="裾を 5 cm 下げる前と、あとを並べた画像" /></p>
+<p>形を残すには、［保存して終了］を押します。押す場所は「<a href="#ch-03_はじめての練習">はじめての練習の手順 8</a>」で確認できます。</p>
+<h3>選べないときは</h3>
+<p>Alt+クリックで、ひと回り選べないことがあります。
+足りない点は、Shift を押しながらクリックして足します。
+ドラッグで、点を囲んで選ぶこともできます。
+本物のアバターは、点がとても多いです。
+シーンビューにマウスを置き、ホイールで拡大してから、場所を見て選びます。</p>
+</section><section class="chapter" id="ch-04_02_めり込みを直す"><h1>めり込みを直す</h1>
+<h2>服が体にめり込んでいるのを直したい</h2>
+<p>めり込み（貫通）は、服が体の中に入りこむことです。
+チェックでは、頂点だけでなく面の途中も調べます。結果の［めり込み・近すぎの面の点］が残っていないかも見ます。
+メッシュ工房は、めり込んだ点を赤く見せて、外へ押し出せます。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。
+重ね着のときは、いちばん外側の服で試します。</p>
+<h3>体を入れます</h3>
+<ol>
+<li>
+<p>［チェック］タブを押します。</p>
+</li>
+<li>
+<p>ヒエラルキーの体を、［体のレンダラー］の欄へドラッグします。</p>
+<p><img src="images/04_04_pen_body_field.png" alt="チェックタブ。タブと、体を入れる欄が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>体の行の名前は、アバターごとに違います。
+行を選び、シーンビューで服ではなく体がオレンジの線で囲まれることを確かめます。
+体の名前を覚えてから、服の行を選び直します。
+服の欄が見えている状態で、体の行を［体のレンダラー］へドラッグします。
+［体を自動で探す］でも入れられます。
+自動で見つかった名前が、確かめた体の行と同じか見ます。
+違っていたら、確かめた体の行をドラッグして入れ直します。</p>
+<h3>調べて直します</h3>
+<ol start="3">
+<li>
+<p>［貫通をチェック］を押します。</p>
+</li>
+<li>
+<p>［自動修正］を押します。</p>
+<p><img src="images/04_05_pen_check_tab.png" alt="チェックタブ。貫通をチェックと自動修正のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>赤い点は、体にめり込んでいる所です。
+黄色は近すぎる所、緑は安全な所です。
+左が自動修正の前、右があとです。</p>
+<p><img src="images/04_06_pen_compare.png" alt="貫通をチェックしたあとと、自動修正のあとを並べた画像。赤い点が消えている" /></p>
+<p>形を残すには、［保存して終了］を押します。押す場所は「<a href="#ch-03_はじめての練習">はじめての練習の手順 8</a>」で確認できます。</p>
+</section><section class="chapter" id="ch-04_03_ふくらませる"><h1>ふくらませる・へこませる</h1>
+<h2>服の一部をふくらませたい・へこませたい</h2>
+<p>スカルプトを使います。
+ブラシでなぞった所が、盛り上がったり、へこんだりします。
+重ね着は、いちばん外側の服を選びます。
+はじめは表面に沿って、表向きの頂点だけをなぞります。別の服や体の面を横切る手前で、点の移動を止めます。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。</p>
+<h3>ブラシを用意します</h3>
+<ol>
+<li>
+<p>［スカルプト］タブを押します。</p>
+</li>
+<li>
+<p>［スカルプトのモードにする］をオンにします。</p>
+</li>
+<li>
+<p>［ツール］の中の［膨らます］を選びます。</p>
+</li>
+<li>
+<p>［半径 (m)］と［強さ］で、ブラシの大きさと強さを決めます。</p>
+<p><img src="images/04_07_sculpt_tab.png" alt="スカルプトタブ。タブ、モードのスイッチ、ツール、半径と強さが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>なぞります</h3>
+<ol start="5">
+<li>
+<p>ふくらませたい所を、ドラッグしてなぞります。</p>
+<p><img src="images/04_08_sculpt_brush.png" alt="シーンビューで上着の前をなぞったところ。緑の円がブラシで、赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>へこませたいときは、Ctrl を押しながらなぞります。
+緑の円が、ブラシの大きさです。
+左がなぞる前、右がなぞったあとです。</p>
+<p><img src="images/04_09_sculpt_compare.png" alt="なぞる前と、膨らますでなぞったあとを並べた画像。上着の前がふくらんでいる" /></p>
+<p>［重ね着の保護］がオンなら、同じアバターの表示中の服・体・髪を調べます。止めた点の数も画面に出ます。
+元からの重なりや、点の間にある面の交差は残る場合があります。最後に、内側と背面も確かめます。
+透明な面も保護の対象です。必要なら［詳しい設定］の［別のメッシュ面を突き抜けない］を外せます。</p>
+</section><section class="chapter" id="ch-04_04_左右を同時に直す"><h1>左右を同時に直す</h1>
+<h2>左右を同時に同じように直したい</h2>
+<p>左右対称をオンにすると、片側を動かしたとき、反対側も同じように動きます。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。</p>
+<h3>左右対称をオンにします</h3>
+<ol>
+<li>
+<p>［頂点］タブの［左右対称（オフ）］を開きます。</p>
+</li>
+<li>
+<p>「左右対称にする軸」の［X］をオンにします。</p>
+<p><img src="images/04_10_symmetry_setting.png" alt="頂点タブの左右対称を開いたところ。左右対称と、X のチェックが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>ふつうのアバターは、左右が X の向きです。</p>
+<h3>片側を動かします</h3>
+<p>あとは、片側の点を動かすだけです。
+動かし方は、「スカートの丈を伸ばす」と同じです。
+反対側も、同じように動きます。
+左が動かす前、右が動かしたあとです。</p>
+<p><img src="images/04_11_symmetry_compare.png" alt="左右対称をオンにして、片側の裾の点を下へ動かす前と、あとを並べた画像。反対側も下がっている" /></p>
+</section><section class="chapter" id="ch-04_05_布のように引っ張る"><h1>布のように引っ張る</h1>
+<h2>布のように引っ張って形を整えたい</h2>
+<p>つまんで引っ張ると、伸びを抑えながら、まわりの布も動かせます。
+動かしたくない所には、先にピン（動かしたくない点に打つ印）を打ちます。
+ピンを打った点は、動きません。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。</p>
+<h3>布のモードにします</h3>
+<ol>
+<li>
+<p>［布］タブを押します。</p>
+</li>
+<li>
+<p>［布のモードにする］をオンにします。</p>
+</li>
+<li>
+<p>［ピンを塗る］を押すと、ピンを打てます。</p>
+</li>
+<li>
+<p>［つまむ］を押すと、布を引っ張れます。</p>
+<p><img src="images/04_12_cloth_tab.png" alt="布タブ。タブ、モードのスイッチ、ピンを塗るとつまむのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>ピンを打ちます</h3>
+<ol start="5">
+<li>
+<p>そのままにしたい所を、ドラッグしてなぞります。</p>
+<p><img src="images/04_13_cloth_pins.png" alt="腰まわりをなぞってピンを打ったところ。水色の点がピンで、赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>引っ張ります</h3>
+<ol start="6">
+<li>
+<p>ずらしたい所を、ドラッグして引っ張ります。</p>
+<p><img src="images/04_14_cloth_pull.png" alt="裾をつまんで、右下へ引っ張ったところ。つまんだ所が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>手を止めると、伸びを抑える計算が進みます。
+はじめは［詳しい設定］の［伸びすぎ・折り返しを抑える］がオンです。
+形を保てる範囲まで動き、マウスの位置まで届かない場合があります。
+［詳しい設定］の［許す伸び (%)］の初めの値は 5（この操作で辺が伸びてよい割合が 5%）です。
+［動かせた割合］が出たら、移動を小さくするか、留める必要のないピンを外して引き直します。
+保護をオフにすると、つまんだ点は目標へ動きますが、伸びや面の折り返しが残る場合があります。
+この保護は体や別の服との衝突判定ではありません。引いたあとは、内側の服と体も見て確かめます。
+形がくずれたときの戻し方は、「<a href="#ch-06_困ったとき">困ったとき</a>」にあります。
+布として引っ張れるのは、ひと続きにつながった服です。
+リボンのように分かれた部品は、ついてきません。</p>
+</section><section class="chapter" id="ch-04_06_スライダーで出し入れする"><h1>スライダーで出し入れする</h1>
+<h2>直した形を、スライダーで出したり消したりしたい</h2>
+<p>動かした分は、シェイプキーに自動で入ります。
+スライダーを動かすと、直した形が出たり消えたりします。</p>
+<h3>編集しているとき</h3>
+<ol>
+<li>
+<p>［シェイプキー］タブを押します。</p>
+</li>
+<li>
+<p>編集している行の［●］を押します。</p>
+<p><img src="images/04_15a_shapekey_editing.png" alt="シェイプキータブ。タブと、編集中の行の●が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>●が○に変わります。すでに○なら、手順 3 へ進みます。</p>
+<ol start="3">
+<li>
+<p>一覧のスライダーを、左右に動かします。</p>
+<p><img src="images/04_15_shapekey_tab.png" alt="シェイプキータブ。○の行のスライダーが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>左が 0、右が 100 のときの形です。</p>
+<p><img src="images/04_16_shapekey_compare.png" alt="シェイプキータブのスライダーが 0 のときと 100 のときの形を並べた画像" /></p>
+<h3>保存して終了したあと</h3>
+<ol start="4">
+<li>
+<p>「仕上がり」の下のスライダーを、左右に動かします。</p>
+<p><img src="images/04_17_result_slider.png" alt="保存して終了のあとのインスペクター。仕上がりのスライダーが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>左が 0、右が 100 のときの形です。</p>
+<p><img src="images/04_18_result_compare.png" alt="仕上がりのスライダーが 0 のときと 100 のときの形を並べた画像" /></p>
+<h3>名前を変えるとき</h3>
+<p>自動で付いたシェイプキーの名前は、変えられます。
+シェイプキータブの一覧で、名前の欄をクリックして書きかえます。
+Enter を押すと、名前が決まります。</p>
+</section><section class="chapter" id="ch-04_07_ポーズで確かめる"><h1>ポーズで確かめる</h1>
+<h2>いろいろなポーズで、めり込まないか確かめたい</h2>
+<p>結果は頂点と、辺の途中・三角形の中に置いた「面の点」を別々に表示します。
+頂点が 0 個でも、面の点が残っている場合は貫通が残っています。
+立っているだけでは、めり込まなくても、腕を上げるとめり込むことがあります。
+メッシュ工房は、いくつかのポーズで、まとめて調べられます。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。
+つぎに、体を［体のレンダラー］に入れておきます。［体を自動で探す］でも入れられます。
+入れ方は、「めり込みを直す」にあります。</p>
+<h3>まとめて調べます</h3>
+<ol>
+<li>
+<p>［チェック］タブを押します。</p>
+</li>
+<li>
+<p>［いろいろなポーズでチェック］の中の［ポーズをチェック］を押します。</p>
+<p><img src="images/04_19_pose_check.png" alt="チェックタブ。タブと、ポーズをチェックのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>ポーズごとに、めり込む点の数が出ます。</p>
+<h3>ポーズを当てて見ます</h3>
+<ol start="3">
+<li>
+<p>［ポーズを当てて見る］を開きます。</p>
+</li>
+<li>
+<p>［ポーズ］で、めり込みの多かったポーズを選びます。</p>
+</li>
+<li>
+<p>［ポーズを当てる］を押します。</p>
+<p><img src="images/04_20_pose_preview_tab.png" alt="ポーズを当てて見るを開いたところ。開いた所、ポーズの選び方、ポーズを当てるボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>もとの姿勢に戻すときは、［元の姿勢に戻す］を押します。</p>
+<p><img src="images/04_21_pose_scene.png" alt="ポーズを当てて、腕を下げた姿勢にしたところ" /></p>
+<p>自動修正で服が尖った場合は、Ctrl+Z で戻します。
+1つの形で、すべてのポーズへ合わせられない場合があります。
+素材に体を隠す形があれば、その使い方も素材の手引書で確かめます。</p>
+</section><section class="chapter" id="ch-04_08_腕についてくるように直す"><h1>腕についてくるように直す</h1>
+<h2>腕を動かしたときの服のついてき方を直したい</h2>
+<p>服の点は、ボーンについて動きます。
+ついていく割合が、ウェイトです。
+袖が腕についてこないときは、ウェイトを塗り直します。
+先に、服に Mesh Edit を付けて、［編集を開始］を押しておきます。
+付け方は、「はじめての練習」にあります。</p>
+<h3>塗るボーンを選びます</h3>
+<ol>
+<li>
+<p>［ウェイト］タブを押します。</p>
+</li>
+<li>
+<p>［ウェイトペイントのモードにする］をオンにします。</p>
+</li>
+<li>
+<p>［検索］に、ボーンの名前の一部を入力します。</p>
+</li>
+<li>
+<p>一覧から、ボーンを 1 つクリックします。</p>
+<p><img src="images/04_22_weight_tab.png" alt="ウェイトタブ。タブ、モードのスイッチ、検索の欄、ボーンの一覧が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>腕のボーンは、名前に Arm と付くことが多いです。</p>
+<h3>色で見ます</h3>
+<ol start="5">
+<li>
+<p>［そのほかの機能］を開きます。</p>
+</li>
+<li>
+<p>［表示］を開きます。</p>
+</li>
+<li>
+<p>［選んだボーンのウェイトを色で表示（青＝0、緑＝0.5、赤＝1）］をオンにします。</p>
+<p><img src="images/04_23_weight_display.png" alt="そのほかの機能を開いたところ。表示の中の、色で表示するスイッチが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>塗ります</h3>
+<ol start="8">
+<li>
+<p>ついてこない所を、ドラッグしてなぞります。</p>
+<p><img src="images/04_24_weight_paint.png" alt="ウェイトの色と、塗るブラシの円。ブラシの円が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>赤いほど、そのボーンに強くついていきます。</p>
+</section><section class="chapter" id="ch-04_09_元に戻す"><h1>やり直す・元に戻す</h1>
+<h2>やり直したい・元に戻したい</h2>
+<ul>
+<li>1 つ前に戻す: Ctrl+Z か、［元に戻す］です。</li>
+<li>戻しすぎたとき: Ctrl+Y か、［やり直す］です。</li>
+<li>全部やめる: ［破棄］です。</li>
+</ul>
+<h3>1 つ前に戻します</h3>
+<ol>
+<li>
+<p>［元に戻す］を押します。</p>
+</li>
+<li>
+<p>やりすぎたときは、［やり直す］を押します。</p>
+<p><img src="images/04_25_undo_buttons.png" alt="頂点タブの下にある、元に戻すとやり直すのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>全部やめます</h3>
+<ol start="3">
+<li>
+<p>［破棄］を押します。</p>
+<p><img src="images/04_26_discard.png" alt="インスペクターの上にある、破棄のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>確認の窓が出ます。
+「実行する」を押すと、保存していない編集が、すべて消えます。
+始める前の形に戻ります。</p>
+<h3>ポリゴン調整を戻す</h3>
+<p>編集中は、ポリゴンタブの調整も Ctrl+Z で1つ前に戻せます。
+Ctrl+Y でやり直せます。
+調整の前後で、動かした形や選んだ点も一緒に戻ります。
+履歴は編集中に使えます。［保存して終了］の前に戻してください。</p>
+<p>［元のメッシュに戻す（リセット）］は、ポリゴン調整をまとめてやめる操作です。
+消えた点の移動量などは、近くの面から求め直します。
+1つ前と同じ状態に戻すときは、Ctrl+Z を使います。
+リセット自体も、編集中は Ctrl+Z で取り消せます。</p>
+</section><section class="chapter" id="ch-04_10_アップロードで直した形にする"><h1>アップロードで直した形にする</h1>
+<h2>VRChat にアップロードしたときに、直した形にしたい</h2>
+<p>ビルド（アップロード用に、アバターをまとめて作ること）のとき、直した形が自動で入ります。
+ただし、NDMF（アップロード前に、自動で処理を足す仕組み）が入っているときだけです。
+Modular Avatar などを入れると、NDMF もいっしょに入ります。</p>
+<h3>設定を確かめます</h3>
+<ol>
+<li>
+<p>［対象の設定］を開きます。</p>
+</li>
+<li>
+<p>［ビルドのときに当てる］が［自動］になっていることを確かめます。</p>
+<p><img src="images/04_27_build_setting.png" alt="対象の設定を開いたところ。対象の設定と、ビルドのときに当てるの欄が赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h3>NDMF が入っていないとき</h3>
+<p>NDMF が入っていないと、自動では当たりません。
+そのときは、メッシュを書き出して、服に入れ直します。</p>
+<ol start="3">
+<li>
+<p>［出力］タブを押します。</p>
+</li>
+<li>
+<p>［メッシュを書き出す…］を押します。</p>
+<p><img src="images/04_28_export_tab.png" alt="出力タブ。タブと、メッシュを書き出すのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<p>書き出したメッシュを服に入れると、自動の適用は切れます。
+二重に当たらないようにするためです。</p>
+</section><section class="chapter" id="ch-05_1_画面の説明_頂点・スカルプト・布・ウェイト"><h1>画面の説明（頂点・スカルプト・布・ウェイト）</h1>
+<p>インスペクターのタブは、全部で 9 つあります。
+ここでは、はじめの 4 つを説明します。</p>
+<h2>頂点タブ</h2>
+<p>点を選んで、矢印で動かすタブです。
+動かした点のまわりも、なめらかについてきます。</p>
+<ul>
+<li>影響範囲: いっしょに動く範囲の大きさです。</li>
+<li>左右対称: 片側を動かすと、反対側も動きます。</li>
+<li>［元に戻す］と［やり直す］: 1 つ前に戻したり、やり直したりします。</li>
+</ul>
+<ol>
+<li>
+<p>［頂点］タブを押します。</p>
+<p><img src="images/05_01_tab_vertex.png" alt="頂点タブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>スカルプトタブ</h2>
+<p>ブラシでなぞって、形を整えるタブです。
+盛り上げたり、へこませたり、ならしたりできます。</p>
+<ul>
+<li>［半径 (m)］: ブラシの大きさです。</li>
+<li>［強さ］: ブラシの効き方です。</li>
+<li>［重ね着の保護］: 別の服や体の面を横切る手前で止めます。［詳しい設定］で切り替えられます。</li>
+</ul>
+<ol>
+<li>
+<p>［スカルプト］タブを押します。</p>
+<p><img src="images/05_02_tab_sculpt.png" alt="スカルプトタブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>布タブ</h2>
+<p>布のように引っ張るタブです。
+動かしたくない所には、ピンを打ちます。</p>
+<ul>
+<li>［つまむ］: 布を引っ張ります。</li>
+<li>［詳しい設定］の［伸びすぎ・折り返しを抑える］: はじめはオンです。形を保てる範囲で移動を止めます。</li>
+<li>［詳しい設定］の［許す伸び (%)］: この操作で辺を伸ばしてよい割合です。5 は 5% です。</li>
+<li>［ピンを塗る］: ピンを打ちます。</li>
+<li>［ピンを外す］: ピンを外します。</li>
+</ul>
+<ol>
+<li>
+<p>［布］タブを押します。</p>
+<p><img src="images/05_03_tab_cloth.png" alt="布タブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>ウェイトタブ</h2>
+<p>ボーンを選んで、ウェイトをブラシで塗るタブです。
+腕を動かしたときの、服のついてき方を直せます。</p>
+<ul>
+<li>［検索］: ボーンの名前で、一覧を絞ります。</li>
+<li>ブラシ: ［混ぜる］［足す］［引く］［ぼかす］があります。</li>
+</ul>
+<ol>
+<li>
+<p>［ウェイト］タブを押します。</p>
+<p><img src="images/05_04_tab_weight.png" alt="ウェイトタブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+</section><section class="chapter" id="ch-05_2_画面の説明_ポリゴン・シェイプキー・チェック"><h1>画面の説明（ポリゴン・シェイプキー・チェック）</h1>
+<p>つづきの 3 つのタブです。</p>
+<h2>ポリゴンタブ</h2>
+<p>ポリゴンを増やしたり、減らしたりするタブです。
+点を足したり、消したりもできます。</p>
+<ul>
+<li>編集中は、このタブの操作も Ctrl+Z で戻せます。Ctrl+Y でやり直せます。</li>
+<li>やり直したいときは、［元のメッシュに戻す（リセット）］を押します。</li>
+</ul>
+<ol>
+<li>
+<p>［ポリゴン］タブを押します。</p>
+<p><img src="images/05_05_tab_polygon.png" alt="ポリゴンタブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>シェイプキータブ</h2>
+<p>作ったシェイプキーの一覧のタブです。
+スライダーで出し入れしたり、名前を変えたりできます。</p>
+<ul>
+<li>［新しいシェイプキー］: シェイプキーを 1 つ作ります。</li>
+<li>［グループを作る］: いくつかをまとめて動かします。</li>
+</ul>
+<ol>
+<li>
+<p>［シェイプキー］タブを押します。</p>
+<p><img src="images/05_06_tab_shapekey.png" alt="シェイプキータブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>チェックタブ</h2>
+<p>服が体にめり込んでいないか調べて、自動で直すタブです。
+いろいろなポーズでも確かめられます。</p>
+<ul>
+<li>［貫通をチェック］: めり込んだ点を、赤く見せます。</li>
+<li>［自動修正］: めり込みを外へ押し出します。</li>
+</ul>
+<ol>
+<li>
+<p>［チェック］タブを押します。</p>
+<p><img src="images/05_07_tab_check.png" alt="チェックタブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+</section><section class="chapter" id="ch-05_3_画面の説明_出力・設定"><h1>画面の説明（出力・設定）</h1>
+<p>最後の 2 つのタブです。</p>
+<h2>出力タブ</h2>
+<p>直した形を、ファイルに書き出すタブです。
+FBX や OBJ のファイルも作れます。</p>
+<ul>
+<li>［メッシュを書き出す…］: メッシュのファイルを作ります。</li>
+<li>書き出さなくても、ビルドのときに自動で当たります。</li>
+</ul>
+<ol>
+<li>
+<p>［出力］タブを押します。</p>
+<p><img src="images/05_08_tab_export.png" alt="出力タブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>設定タブ</h2>
+<p>法線（面の向き）の作り方や、表示を決めるタブです。
+複数のメッシュを、同時に編集することもできます。</p>
+<ul>
+<li>［プリセット］: 気に入った設定を、保存しておけます。</li>
+<li>［表示の設定］: 点や法線を、見やすくします。</li>
+</ul>
+<ol>
+<li>
+<p>［設定］タブを押します。</p>
+<p><img src="images/05_09_tab_settings.png" alt="設定タブ。タブのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+</section><section class="chapter" id="ch-05_4_画面の説明_頂点・スカルプト・布モード"><h1>画面の説明（頂点・スカルプト・布モード）</h1>
+<p>シーンビューの右下に、「GP13 メッシュ編集」という小さな窓が出ます。
+これが、設定の窓です。
+ここで、モードを切りかえます。</p>
+<h2>頂点モード</h2>
+<p>点を選んで、矢印で動かします。</p>
+<ul>
+<li>クリック: 点を 1 つ選びます。</li>
+<li>Shift+クリック: 選んだ点に足します。</li>
+<li>ドラッグ: 四角で囲んで選びます。</li>
+<li>Alt+クリック: ひと続きの列を選びます。</li>
+<li>W / E / R: 移動・回転・拡大縮小の矢印に切りかえます。</li>
+<li>Esc: 途中の変形を取り消します。</li>
+</ul>
+<ol>
+<li>
+<p>設定の窓の［頂点］を押します。</p>
+<p><img src="images/05_10_mode_vertex.png" alt="設定の窓の頂点モード。頂点のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>スカルプトモード</h2>
+<p>ブラシでなぞって、形を変えます。</p>
+<ul>
+<li>ドラッグ: ブラシでなぞります。</li>
+<li>Ctrl+ドラッグ: 盛る・削るを逆にします。</li>
+<li>Ctrl+ホイール: ブラシの半径を変えます。</li>
+<li>Shift+ホイール: ブラシの強さを変えます。</li>
+</ul>
+<ol>
+<li>
+<p>設定の窓の［スカルプト］を押します。</p>
+<p><img src="images/05_11_mode_sculpt.png" alt="設定の窓のスカルプトモード。スカルプトのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>布モード</h2>
+<p>つまんで引っ張ったり、ピンを塗ったりします。</p>
+<ul>
+<li>ドラッグ（［つまむ］のとき）: 布を引っ張ります。</li>
+<li>ドラッグ（［ピンを塗る］のとき）: ピンを塗ります。</li>
+<li>Ctrl+ドラッグ: 塗る・外すを逆にします。</li>
+<li>Esc: つまんだ引っ張りを取り消します。</li>
+</ul>
+<ol>
+<li>
+<p>設定の窓の［布］を押します。</p>
+<p><img src="images/05_12_mode_cloth.png" alt="設定の窓の布モード。布のボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+</section><section class="chapter" id="ch-05_5_画面の説明_ウェイト・ポリゴンモード"><h1>画面の説明（ウェイト・ポリゴンモード）</h1>
+<p>つづきの 2 つのモードです。</p>
+<h2>ウェイトモード</h2>
+<p>ウェイトをブラシで塗ります。
+塗るボーンは、先にウェイトタブで選びます。</p>
+<ul>
+<li>ドラッグ: ウェイトを塗ります。</li>
+<li>Shift+ドラッグ: ぼかします。</li>
+<li>Ctrl+ドラッグ: 足す・引くを入れ替えます。</li>
+</ul>
+<ol>
+<li>
+<p>設定の窓の［ウェイト］を押します。</p>
+<p><img src="images/05_13_mode_weight.png" alt="設定の窓のウェイトモード。ウェイトのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+<h2>ポリゴンモード</h2>
+<p>表面をクリックして、点を足したい場所を置きます。
+Enter で、まとめて確定します。</p>
+<ul>
+<li>クリック: 足す予定の点を置きます。</li>
+<li>Enter: 予定の点をまとめて確定します。</li>
+<li>Backspace / Delete: 最後の 1 点を取り消します。</li>
+<li>Esc: 予定の点を、すべて取り消します。</li>
+</ul>
+<ol>
+<li>
+<p>設定の窓の［ポリゴン］を押します。</p>
+<p><img src="images/05_14_mode_polygon.png" alt="設定の窓のポリゴンモード。ポリゴンのボタンが赤い枠で囲まれている" /></p>
+</li>
+</ol>
+</section><section class="chapter" id="ch-06_困ったとき"><h1>困ったとき</h1>
+<h2>タブの中身が灰色で、使えない</h2>
+<ul>
+<li>どうなっているか: まだ編集を始めていません。</li>
+<li>どうすればよいか: ［編集を開始］を押します。</li>
+</ul>
+<h2>点が選べない・見つけにくい</h2>
+<ul>
+<li>どうなっているか: 点が多く、重なっています。</li>
+<li>どうすればよいか: ホイールで拡大して選びます。</li>
+</ul>
+<h2>裾をひと回り選べない</h2>
+<ul>
+<li>どうなっているか: Alt+クリックで、足りない所が出ることがあります。</li>
+<li>どうすればよいか: Shift を押しながらクリックして足すか、ドラッグで囲みます。</li>
+</ul>
+<h2>めり込みが直らない</h2>
+<ul>
+<li>どうなっているか: 重ね着や、両立しないポーズがあります。</li>
+<li>どうすればよいか: 外側の服で試します。尖ったら Ctrl+Z で戻します。素材に体を隠す形がある場合は、素材の手引書も見ます。</li>
+</ul>
+<h2>布として引っ張っても、ついてこない部品がある</h2>
+<ul>
+<li>どうなっているか: 分かれた部品（リボンなど）は、ひと続きの服ではありません。</li>
+<li>どうすればよいか: その部品は、頂点タブで別に動かします。</li>
+</ul>
+<h2>布が大きく伸びたままになる</h2>
+<ul>
+<li>どうなっているか: 保護がオフか、何度も伸ばしています。伸びの保護は1回の操作ごとです。</li>
+<li>どうすればよいか: Ctrl+Z で戻し、小さく引きます。不要なピンは［ピンを外す］で外します。</li>
+</ul>
+<h2>布がマウスの位置まで動かない</h2>
+<ul>
+<li>どうなっているか: ［伸びすぎ・折り返しを抑える］が移動を制限しています。［動かせた割合］で量が分かります。</li>
+<li>どうすればよいか: 小さく引くか、ピンを見直します。保護を外す場合は、貫通や面の裏返りを確かめます。</li>
+</ul>
+<h2>保存のあと、Unity の矢印が出た</h2>
+<ul>
+<li>どうなっているか: 服全体を動かす矢印です。</li>
+<li>どうすればよいか: さわりません。さわったときは、Ctrl+Z で戻します。</li>
+</ul>
+<h2>スライダーを動かしても、形が変わらない</h2>
+<ul>
+<li>どうなっているか: 「仕上がり」の下のチェックが、オフかもしれません。</li>
+<li>どうすればよいか: オンにします。［ビルドのときに当てる］が［自動では当てない］のときも、表示されません。</li>
+</ul>
+<h2>編集中のシェイプキーのスライダーが使えない</h2>
+<ul>
+<li>どうなっているか: ●の行は、編集中の形を 100 の状態で見せています。</li>
+<li>どうすればよいか: ●を押して○に戻してから、スライダーを動かします。</li>
+</ul>
+<h2>シェイプキーの名前が分かりにくい</h2>
+<ul>
+<li>どうなっているか: 自動の名前です。</li>
+<li>どうすればよいか: シェイプキータブの一覧で、名前を書きかえます。</li>
+</ul>
+<h2>アップロードした姿に、直した形が出ない</h2>
+<ul>
+<li>どうなっているか: NDMF が入っていないと、自動では当たりません。</li>
+<li>どうすればよいか: 「アップロードで直した形にする」を見て、書き出します。</li>
+</ul>
+<h2>保存せずに閉じてしまった</h2>
+<ul>
+<li>どうなっているか: 保存した内容は、同じ場面（シーン）で確かめます。</li>
+<li>どうすればよいか: シーンを開き、［仕上がり］で確かめます。</li>
+<li>次からは、閉じる前に［保存］か［保存して終了］を押します。編集がファイルに書き込まれます。</li>
+</ul>
+<h2>Add Component に「Mesh Edit」が出ない</h2>
+<ul>
+<li>どうなっているか: ツールが、Unity に入っていません。</li>
+<li>どうすればよいか: 「入れ方」を、もう一度やり直します。</li>
+</ul>
+<h2>プロジェクトウィンドウに MeshKobo フォルダが出ない</h2>
+<ul>
+<li>どうなっているか: ZIP ファイルをまだ解凍していないか、取り込みの窓で［Import］を押す前に閉じたかもしれません。</li>
+<li>どうすればよいか: <a href="#ch-02_入れ方">入れ方</a>に戻り、<code>MeshKobo.unitypackage</code> を取り込み直します。</li>
+</ul>
+<h2>取り込んだあと、Unity に赤いエラーが出た</h2>
+<ul>
+<li>どうなっているか: 古い版の <code>MeshKobo</code> フォルダが残っているか、同じツールが別の方法でも入っているかもしれません。</li>
+<li>どうすればよいか: プロジェクトウィンドウで <code>Assets</code> の中の <code>MeshKobo</code> フォルダを消し、<code>MeshKobo.unitypackage</code> を取り込み直します。
+Package Manager の一覧に「GP13 Mesh Edit」が出ているときは、それを選んで［Remove］を押してから、取り込み直します。</li>
+</ul>
+<h2>ポリゴン調整をやり直したい</h2>
+<ul>
+<li>どうなっているか: 三角形の数を変えたり、点を消したりしました。</li>
+<li>どうすればよいか: 編集中は Ctrl+Z で、調整前の状態へ戻せます。戻しすぎたら Ctrl+Y でやり直せます。</li>
+<li>［元のメッシュに戻す（リセット）］は、消した点を周りの面から求め直します。1手戻す操作とは違います。</li>
+<li>編集を始めてからの変更をすべてやめるときは、［破棄］を使います。</li>
+</ul>
+</section><section class="chapter" id="ch-07_言葉の一覧"><h1>言葉の一覧</h1>
+<p>この手引書で使う言葉を、50 音順ではなく、使う順に並べました。</p>
+<h2>Unity の言葉</h2>
+<ul>
+<li>プロジェクト: Unity で作業しているデータの入れ物です。</li>
+<li>ヒエラルキー: Unity の左にある、置いてある物の一覧です。</li>
+<li>インスペクター: Unity の右にある、選んだ物の設定の窓です。</li>
+<li>シーンビュー: Unity の真ん中にある、服を見る画面です。</li>
+<li>シーン: アバターや服を置いて作業している場面です。</li>
+<li>プロジェクトウィンドウ: Unity の下にある、プロジェクトの中のファイルの一覧です。</li>
+<li>Alt+クリック: Alt キーを押しながら、クリックすることです。</li>
+</ul>
+<h2>服の言葉</h2>
+<ul>
+<li>メッシュ: 服の形そのもののデータです。</li>
+<li>頂点: 服の形を決めている小さな点です。</li>
+<li>ポリゴン: 服の表面をつくる三角形です。</li>
+<li>法線: 面の向きです。明るさの付き方が決まります。</li>
+<li>ボーン: アバターの骨です。服の頂点は、ボーンについて動きます。</li>
+<li>ウェイト: 頂点が、ボーンの動きにどれだけついていくかの割合です。</li>
+<li>裾: 服のいちばん下のふちです。</li>
+<li>貫通（めり込み）: 服が体の中に入りこむことです。</li>
+</ul>
+<h2>メッシュ工房の言葉</h2>
+<ul>
+<li>スカルプト: 粘土をこねるように、ブラシでなぞって形を整えることです。</li>
+<li>シェイプキー: 形の変化を、0 から 100 のスライダーで出し入れするものです。Unity の中では BlendShape と呼びます。</li>
+<li>影響範囲: 選んだ点といっしょに動く範囲です。</li>
+<li>ピン: 動かしたくない点に打つ印です。ピンを打った点は動きません。</li>
+<li>左右対称: 片側を動かすと、反対側も鏡のように動くことです。</li>
+<li>破棄: 保存していない編集をやめて、始める前に戻すことです。</li>
+<li>設定の窓: シーンビューの右下に出る、小さな窓です。</li>
+<li>プリセット: 設定を保存して、また使えるようにしたものです。</li>
+</ul>
+<h2>アップロードの言葉</h2>
+<ul>
+<li>ビルド: アップロード用に、アバターをまとめて作ることです。</li>
+<li>NDMF: アップロード前に、自動で処理を足す仕組みです。</li>
+</ul>
+</section></main>
+</div>
+<div class="top"><button class="menu-btn" type="button">目次</button><a href="#ch-index">いちばん上へ</a></div>
+<div id="lightbox"><img alt=""></div>
+<script>
+(function(){
+  var KEY='gp13-manual-done', done={};
+  try{done=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+  document.querySelectorAll('section.chapter ol').forEach(function(ol){
+    var items=[].filter.call(ol.children,function(c){return c.tagName==='LI'});
+    if(!items.length||ol.closest('li'))return;
+    ol.classList.add('steps');
+    var sec=ol.closest('section');
+    items.forEach(function(li,i){
+      var id=(sec?sec.id:'')+':'+i+':'+li.textContent.trim().slice(0,24);
+      li.classList.add('step');
+      var b=document.createElement('button');b.type='button';b.className='tick';
+      function paint(){li.classList.toggle('done',!!done[id]);b.textContent=done[id]?'戻す':'できた'}
+      b.onclick=function(){if(done[id])delete done[id];else done[id]=1;save();paint()};
+      li.insertBefore(b,li.firstChild);paint();
+    });
+  });
+  var lb=document.getElementById('lightbox'),lbi=lb.querySelector('img');
+  document.querySelectorAll('main img').forEach(function(im){im.onclick=function(){lbi.src=im.src;lb.classList.add('on')}});
+  lb.onclick=function(){lb.classList.remove('on')};
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')});
+  var toc=document.querySelector('nav.toc');
+  document.querySelector('.menu-btn').onclick=function(){toc.classList.toggle('open')};
+  toc.addEventListener('click',function(e){if(e.target.tagName==='A')toc.classList.remove('open')});
+  var links=[].slice.call(toc.querySelectorAll('a[href^="#"]'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
+  function spy(){var y=window.scrollY+120,cur=0;secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i});links.forEach(function(a,i){a.classList.toggle('on',i===cur)})}
+  window.addEventListener('scroll',spy,{passive:true});spy();
+})();
+</script>
+</body>
+</html>
