@@ -4,7 +4,7 @@ Unityでアバターの服の形やめり込みを直すメッシュ編集ツー
 
 ## 手引書
 
-- [GP13使用手引書.html](GP13使用手引書.html)
+- [オンラインで読む](https://creativeandcreative9.github.io/GP13_manual/)
+- [GP13使用手引書.html](GP13使用手引書.html)（HTMLファイル）
 
-HTMLファイルをダウンロードして、ブラウザで開いてください。
-画像は `images` フォルダの中にあります。HTMLと同じ場所に置いたまま開きます。
+画像は `images` フォルダの中にあります。HTMLファイルをダウンロードして開くときは、HTMLと同じ場所に置いたまま開きます。
