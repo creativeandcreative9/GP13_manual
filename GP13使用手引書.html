@@ -875,7 +875,7 @@ Unity のエディタの中だけで動きます。
 シーンや Prefab を保存するときは、表示を元のメッシュにもどします。
 これは、初めの設定です。
 そのため、編集中の形が Prefab に入りません。</p>
-<p class="zukan-where">メッシュ編集を追加すると、Assets の GP13_MeshEdit フォルダに、別のファイルができます。</p>
+<p class="zukan-where">メッシュ編集を追加すると、Assets の GP13_MeshKoubo_DataFile フォルダに、別のファイルができます。</p>
 <p class="zukan-mark">仕組みは動く</p>
 </div>
 <div class="zukan-card">
@@ -1206,6 +1206,7 @@ Windows と Linux では、動くことを確かめています。</li>
 <p>Unity に取り込んだあとは、ZIP ファイルや解凍したフォルダを、移動・削除してもツールは使えます。</p>
 <h2>Unity に入れる</h2>
 <p>先に、Unity で、アバターが入ったデータ（プロジェクト）を開いておきます。</p>
+<p>以前の版が入っている場合は、次の操作に進む前に「<a href="#install-update">バージョンアップするとき</a>」の手順で旧フォルダを整理します。</p>
 <ol>
 <li>
 <p><code>MeshKobo.unitypackage</code> をダブルクリックします。
@@ -1223,7 +1224,7 @@ Unity の上のメニューから、［Assets &gt; Import Package &gt; Custom Pa
 <h2>入ったことを確かめる</h2>
 <ol start="4">
 <li>
-<p>Unity の下にあるプロジェクトウィンドウで、<code>Assets</code> の中に <code>MeshKobo</code> フォルダが出ていることを確かめます。</p>
+<p>Unity の下にあるプロジェクトウィンドウで、<code>Assets</code> の中に <code>GP13_MeshKoubo</code> フォルダが出ていることを確かめます。</p>
 </li>
 <li>
 <p>Unity の上のメニューから、［Tools &gt; Mesh Koubo &gt; Open］を選び、「MeshKobo」の窓が開くことを確かめます。同じメニューに［Mesh Edit Target List］［Manual］［About］も並びます。</p>
@@ -1240,10 +1241,15 @@ Unity の上のメニューから、［Assets &gt; Import Package &gt; Custom Pa
 OBJ のファイルは、追加なしで書き出せます。
 どちらも、［出力］タブの［FBX / OBJ のファイルで書き出す］から書き出します。
 くわしくは、「<a href="#ch-05_3_画面の説明_出力・設定">画面の説明（出力・設定）</a>」にあります。</p>
-<h2>バージョンアップするとき</h2>
-<p>新しい版を入れる前に、<code>Assets</code> の中の <code>MeshKobo</code> フォルダを、プロジェクトウィンドウで右クリックして［Delete］で消します。
-そのあと、新しい <code>MeshKobo.unitypackage</code> を、上と同じ手順で取り込みます。
-フォルダを消さずに取り込むと、古いファイルが残って、動かなくなることがあります。</p>
+<h2 id="install-update">バージョンアップするとき</h2>
+<p>先にプロジェクトのバックアップを取ります。保存したメッシュやプリセットなどをツールのフォルダ内に置いている場合は、フォルダの外へ移しておきます。</p>
+<p>編集データは <code>Assets/GP13_MeshKoubo_DataFile</code> に保存されます。このフォルダは、バージョンアップのときも消さずに残してください。
+以前の <code>Assets/GP13_MeshEdit</code> や、自分で選んだ場所にある編集データも、そのまま使えます。旧フォルダの名前を変える必要はありません。
+保存場所を変えたい場合は、バックアップを取ってから、Unity のプロジェクトウィンドウでフォルダを移動・変更してください。</p>
+<p>新しい版を入れる前に、<code>Assets</code> の中の <code>GP13_MeshKoubo</code> フォルダを、プロジェクトウィンドウで右クリックして［Delete］で消します。
+以前の版が <code>Assets/MeshKobo</code> に入っている場合は、その旧フォルダを消します。
+そのあと、新しい <code>MeshKobo.unitypackage</code> を、上と同じ手順で取り込みます。新しい導入先は <code>Assets/GP13_MeshKoubo</code> です。
+古いフォルダを残したまま取り込むと、ツールが二重に入ったり、古いファイルが残ったりして、動かなくなることがあります。</p>
 </section><section class="chapter" id="ch-03_はじめての練習"><h1>はじめての練習</h1>
 <p>スカートの裾をつかんで下げます。
 下げた形をシェイプキーに登録して、スライダーで出し入れします。
@@ -2953,7 +2959,7 @@ Ctrl を押すと、足す・引くが入れ替わります。</p>
 </li>
 </ol>
 <p>選んだシェイプキーごとに、オフ（0）とオン（100）のクリップを作ります。
-できる場所は、Assets/GP13_MeshEdit/Clips です。</p>
+できる場所は、Assets/GP13_MeshKoubo_DataFile/Clips です。</p>
 <h3>気をつけること</h3>
 <ul>
 <li>試したところ、頬をふくらませ、口の端を下げた表情を作れました。スライダーを動かすと、笑顔からふくれっ面へ変わるのが、見て分かりました。小さな変形は、スライダーを 100 にして確かめます。</li>
@@ -3507,15 +3513,15 @@ Enter で、まとめて確定します。</p>
 <li>どうなっているか: ツールが、Unity に入っていません。</li>
 <li>どうすればよいか: 「入れ方」を、もう一度やり直します。</li>
 </ul>
-<h2>プロジェクトウィンドウに MeshKobo フォルダが出ない</h2>
+<h2>プロジェクトウィンドウに GP13_MeshKoubo フォルダが出ない</h2>
 <ul>
 <li>どうなっているか: ZIP ファイルをまだ解凍していないか、取り込みの窓で［Import］を押す前に閉じたかもしれません。</li>
 <li>どうすればよいか: <a href="#ch-02_入れ方">入れ方</a>に戻り、<code>MeshKobo.unitypackage</code> を取り込み直します。</li>
 </ul>
 <h2>取り込んだあと、Unity に赤いエラーが出た</h2>
 <ul>
-<li>どうなっているか: 古い版の <code>MeshKobo</code> フォルダが残っているか、同じツールが別の方法でも入っているかもしれません。</li>
-<li>どうすればよいか: プロジェクトウィンドウで <code>Assets</code> の中の <code>MeshKobo</code> フォルダを消し、<code>MeshKobo.unitypackage</code> を取り込み直します。
+<li>どうなっているか: 以前の <code>Assets/MeshKobo</code> フォルダや古いツールのファイルが残っているか、同じツールが別の方法でも入っているかもしれません。</li>
+<li>どうすればよいか: 「<a href="#install-update">バージョンアップするとき</a>」の手順で保存データを退避し、古いツールのフォルダを消してから <code>MeshKobo.unitypackage</code> を取り込み直します。
 Package Manager の一覧に「GP13 Mesh Edit」が出ているときは、それを選んで［Remove］を押してから、取り込み直します。</li>
 </ul>
 <h2>ポリゴン調整をやり直したい</h2>
